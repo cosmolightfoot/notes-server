@@ -2,6 +2,7 @@ require('dotenv').config();
 const request = require('supertest');
 const mongoose = require('mongoose');
 const connect = require('../lib/utils/connect');
+const app = require('../lib/app');
 
 describe('notes routes', () => {
   beforeAll(() => {
@@ -18,7 +19,7 @@ describe('notes routes', () => {
 
   it('can add a note', () => {
     return request(app)
-      .post()
+      .post('/api/v1/notes')
       .send({ title: 'my note', body: 'is awesome' })
       .then(res => {
         expect(res.body).toEqual({
