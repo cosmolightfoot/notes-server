@@ -31,4 +31,16 @@ describe('notes routes', () => {
       });
   });
 
+  it('can get all notes', async() => {
+    const newNote = await request(app)
+      .post('/api/v1/notes')
+      .send({ title: 'my note', body: 'is awesome' });
+
+    const gotNotes = await request(app)
+      .get('/api/v1/notes');
+
+    expect(gotNotes.body).toEqual([{ title: 'my note', body: 'is awesome', _id: newNote.body._id }]);
+  });
 });
+
+
